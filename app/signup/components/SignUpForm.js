@@ -1,7 +1,7 @@
-import { Box, Button, Checkbox, Container, FormControlLabel, TextField, Typography } from "@mui/material";
+import { Box, Button, Container, TextField, Typography } from "@mui/material";
 import Link from "next/link";
 
-export default function SignInForm() {
+export default function SignUpForm() {
     const styles = {
         main: {
             marginTop: 5,
@@ -29,7 +29,7 @@ export default function SignInForm() {
         },
         bottom: {
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
         }
     };
 
@@ -37,9 +37,17 @@ export default function SignInForm() {
         <Container maxWidth="xs">
             <Box sx={styles.main}>
                 <Typography sx={styles.header}>
-                    Sign In
+                    Sign Up
                 </Typography>
                 <Box component="form" sx={styles.form}>
+                    <TextField
+                        margin="normal"
+                        fullWidth
+                        id="name"
+                        label="First Name"
+                        name="name"
+                        autoFocus
+                    />
                     <TextField
                         margin="normal"
                         fullWidth
@@ -47,9 +55,7 @@ export default function SignInForm() {
                         label="Email Address"
                         name="email"
                         autoComplete="email"
-                        autoFocus
                     />
-
                     <TextField
                         margin="normal"
                         fullWidth
@@ -59,10 +65,6 @@ export default function SignInForm() {
                         id="password"
                         autoComplete="current-password"
                     />
-                    <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
-                        label="Remember me"
-                    />
                     <Link href="/home" style={styles.submitLink}>
                         <Button
                             type="submit"
@@ -70,12 +72,11 @@ export default function SignInForm() {
                             variant="contained"
                             sx={styles.submit}
                         >
-                            SIGN IN
+                            SIGN UP
                         </Button>
                     </Link>
                     <Box sx={styles.bottom}>
-                        <Link href="#" style={styles.link}>Forgot password?</Link>
-                        <Link href="/signup" style={styles.link}>Don&apos;t have an account? Sign up</Link>
+                        <Link href="/signin" style={styles.link}>Already have an account? Sign in</Link>
                     </Box>
                 </Box>
             </Box>
