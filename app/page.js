@@ -11,6 +11,6 @@ export default function App() {
   });
 
   return (
-    <></>
+    <>HOME</>
   );
 }
