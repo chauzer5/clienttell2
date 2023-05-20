@@ -1,4 +1,5 @@
 import "./globals.css";
+import { AppWrapper } from "./context/app_state";
 
 export const metadata = {
   title: 'ClientTell',
@@ -13,7 +14,13 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
         <link href="https://fonts.googleapis.com/css2?family=Koulen&display=swap" rel="stylesheet"/>
       </head>
-      <body>{children}</body>
+      <body>
+
+        <AppWrapper>
+          {children}
+        </AppWrapper>
+
+      </body>
     </html>
   );
 }
