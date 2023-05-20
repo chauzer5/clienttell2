@@ -1,5 +1,11 @@
+"use client";
+
 import { Box, Button, Checkbox, Container, FormControlLabel, TextField, Typography } from "@mui/material";
 import Link from "next/link";
+import { useAppContext } from "@/app/context/app_state";
+import { useRouter } from "next/navigation";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "@/app/firebase/firebaseSetup";
 
 export default function SignInForm() {
     const styles = {
@@ -33,13 +39,34 @@ export default function SignInForm() {
         }
     };
 
+    const { setSignedInUserId, setUserFirstName } = useAppContext();
+    const router = useRouter();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+
+        const email = formData.get("email");
+        const password = formData.get("password");
+        const remember = formData.get("remember") != null;
+
+        signInWithEmailAndPassword(auth, email, password).then((result) => {
+            console.log("SIGNED IN");
+            console.log(result);
+            setSignedInUserId(result.user.uid);
+            setUserFirstName(result.user.displayName);
+            router.push('/home');
+        });
+
+    };
+
     return (
         <Container maxWidth="xs">
             <Box sx={styles.main}>
                 <Typography sx={styles.header}>
                     Sign In
                 </Typography>
-                <Box component="form" sx={styles.form}>
+                <Box component="form" onSubmit={handleSubmit} sx={styles.form}>
                     <TextField
                         margin="normal"
                         fullWidth
@@ -60,19 +87,17 @@ export default function SignInForm() {
                         autoComplete="current-password"
                     />
                     <FormControlLabel
-                        control={<Checkbox value="remember" color="primary" />}
+                        control={<Checkbox name="remember" color="primary" />}
                         label="Remember me"
                     />
-                    <Link href="/home" style={styles.submitLink}>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={styles.submit}
-                        >
-                            SIGN IN
-                        </Button>
-                    </Link>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={styles.submit}
+                    >
+                        SIGN IN
+                    </Button>
                     <Box sx={styles.bottom}>
                         <Link href="#" style={styles.link}>Forgot password?</Link>
                         <Link href="/signup" style={styles.link}>Don&apos;t have an account? Sign up</Link>

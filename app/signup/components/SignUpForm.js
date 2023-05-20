@@ -1,5 +1,11 @@
+"use client";
+
+import { useAppContext } from "@/app/context/app_state";
 import { Box, Button, Container, TextField, Typography } from "@mui/material";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "@/app/firebase/firebaseSetup";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function SignUpForm() {
     const styles = {
@@ -33,13 +39,34 @@ export default function SignUpForm() {
         }
     };
 
+    const { setSignedInUserId, setUserFirstName } = useAppContext();
+    const router = useRouter();
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const formData = new FormData(event.currentTarget);
+        
+        const email = formData.get("email");
+        const password = formData.get("password");
+        const firstName = formData.get("name");
+
+        createUserWithEmailAndPassword(auth, email, password).then((result) => {
+            console.log("SIGNED UP");
+            console.log(result);
+            setSignedInUserId(result.user.uid);
+            setUserFirstName(firstName);
+            updateProfile(auth.currentUser, {displayName: firstName});
+            router.push('/home');
+        })
+    }
+
     return (
         <Container maxWidth="xs">
             <Box sx={styles.main}>
                 <Typography sx={styles.header}>
                     Sign Up
                 </Typography>
-                <Box component="form" sx={styles.form}>
+                <Box component="form" onSubmit={handleSubmit} sx={styles.form}>
                     <TextField
                         margin="normal"
                         fullWidth
@@ -65,16 +92,14 @@ export default function SignUpForm() {
                         id="password"
                         autoComplete="current-password"
                     />
-                    <Link href="/home" style={styles.submitLink}>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={styles.submit}
-                        >
-                            SIGN UP
-                        </Button>
-                    </Link>
+                    <Button
+                        type="submit"
+                        fullWidth
+                        variant="contained"
+                        sx={styles.submit}
+                    >
+                        SIGN UP
+                    </Button>
                     <Box sx={styles.bottom}>
                         <Link href="/signin" style={styles.link}>Already have an account? Sign in</Link>
                     </Box>
