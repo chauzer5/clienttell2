@@ -63,7 +63,7 @@ export default function SignInForm() {
     return (
         <Container maxWidth="xs">
             <Box sx={styles.main}>
-                <Typography sx={styles.header}>
+                <Typography sx={styles.header} onClick={() => {console.log(auth)}}>
                     Sign In
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit} sx={styles.form}>
