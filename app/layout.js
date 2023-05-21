@@ -1,22 +1,12 @@
-"use client";
-
 import "./globals.css";
 import { AppWrapper } from "./context/app_state";
-import { auth } from "./firebase/firebaseSetup";
-import { useEffect } from "react";
 
-// export const metadata = {
-//   title: 'ClientTell',
-//   description: 'Efficient sales call notes',
-// };
+export const metadata = {
+  title: 'ClientTell',
+  description: 'Efficient sales call notes',
+};
 
 export default function RootLayout({ children }) {
-
-  useEffect(() => {
-    console.log("AUTH");
-    console.log(auth);
-  });
-
   return (
     <html lang="en">
       <head>

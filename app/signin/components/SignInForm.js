@@ -51,10 +51,6 @@ export default function SignInForm() {
         const remember = formData.get("remember") != null;
 
         signInWithEmailAndPassword(auth, email, password).then((result) => {
-            console.log("SIGNED IN");
-            console.log(result);
-            setSignedInUserId(result.user.uid);
-            setUserFirstName(result.user.displayName);
             router.push('/home');
         });
 
@@ -63,7 +59,7 @@ export default function SignInForm() {
     return (
         <Container maxWidth="xs">
             <Box sx={styles.main}>
-                <Typography sx={styles.header} onClick={() => {console.log(auth)}}>
+                <Typography sx={styles.header}>
                     Sign In
                 </Typography>
                 <Box component="form" onSubmit={handleSubmit} sx={styles.form}>

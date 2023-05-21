@@ -51,10 +51,6 @@ export default function SignUpForm() {
         const firstName = formData.get("name");
 
         createUserWithEmailAndPassword(auth, email, password).then((result) => {
-            console.log("SIGNED UP");
-            console.log(result);
-            setSignedInUserId(result.user.uid);
-            setUserFirstName(firstName);
             updateProfile(auth.currentUser, {displayName: firstName});
             router.push('/home');
         })

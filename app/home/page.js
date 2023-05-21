@@ -7,7 +7,7 @@ import { auth } from "../firebase/firebaseSetup";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { userFirstName, setUserFirstName, setSignedInUserId } = useAppContext();
+  const { userFirstName } = useAppContext();
   const router = useRouter();
 
   return (
@@ -15,8 +15,6 @@ export default function Home() {
       <Typography>Welcome, {userFirstName}</Typography>
       <Typography onClick={()=>{
         signOut(auth).then(() => {
-          setUserFirstName(null);
-          setSignedInUserId(null);
           router.push('/signin');
         });
         
