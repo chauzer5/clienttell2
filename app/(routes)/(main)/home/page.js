@@ -4,11 +4,9 @@ import { Typography } from "@mui/material";
 import { useAppContext } from "../../../context/app_state";
 import { signOut } from "firebase/auth";
 import { auth } from "../../../firebase/firebaseSetup";
-import { useRouter } from "next/navigation";
 
 export default function Home() {
   const { userFirstName } = useAppContext();
-  const router = useRouter();
 
   return (
     <>
@@ -16,7 +14,7 @@ export default function Home() {
       <Typography onClick={()=>{
         signOut(auth).catch((error) => {
           console.log(error.message);
-        })
+        });
         
       }}>Sign out</Typography>
     </>

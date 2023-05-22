@@ -1,6 +1,8 @@
 import { Typography } from "@mui/material";
 
-export default function ClientTellLogo(){
+export default function ClientTellLogo(props){
+    const { style } = props;
+
     const styles = {
         logo: {
             fontFamily: "'Koulen', cursive",
@@ -8,6 +10,7 @@ export default function ClientTellLogo(){
             color: "#3D5C7E",
             textDecoration: "none",
             display: "inline-block",
+            ...style,
         },
     }
 
