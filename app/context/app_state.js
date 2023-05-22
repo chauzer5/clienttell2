@@ -18,11 +18,11 @@ export function AppWrapper({children}) {
     const router = useRouter()
 
     onAuthStateChanged(auth, (user) => {
-        if (user) {
+        if (user && !signedInUserId) {
             setSignedInUserId(user.uid);
             setUserFirstName(user.displayName);
             router.push('/home');
-        } else {
+        } else if (!user && signedInUserId){
             setSignedInUserId(null);
             setUserFirstName(null);
             router.push('/signin');
