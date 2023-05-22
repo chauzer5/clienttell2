@@ -3,7 +3,7 @@
 import { Alert, Box, Button, Checkbox, Container, FormControlLabel, Snackbar, TextField, Typography } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { browserLocalPersistence, browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "@/app/firebase/firebaseSetup";
 import { useState } from "react";
 
@@ -52,24 +52,27 @@ export default function SignInForm() {
         const password = formData.get("password");
         const remember = formData.get("remember") != null;
 
-        signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-            router.push('/home');
+        setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence).then(() => {
+            signInWithEmailAndPassword(auth, email, password)
+            .then(() => {
+                router.push('/home');
+            })
+            .catch((error) => {
+                switch(error.code){
+                    case "auth/invalid-email":
+                    case "auth/user-not-found":
+                        setErrorMessage("No account matching that email")
+                        break;
+                    case "auth/wrong-password":
+                        setErrorMessage("Incorrect password");
+                        break;
+                    default:
+                        setErrorMessage(error.code);
+                }
+                setErrorOpen(true);
+            });
         })
-        .catch((error) => {
-            switch(error.code){
-                case "auth/invalid-email":
-                case "auth/user-not-found":
-                    setErrorMessage("No account matching that email")
-                    break;
-                case "auth/wrong-password":
-                    setErrorMessage("Incorrect password");
-                    break;
-                default:
-                    setErrorMessage(error.code);
-            }
-            setErrorOpen(true);
-        });
+        
     };
 
     return (
@@ -118,7 +121,7 @@ export default function SignInForm() {
                     </Box>
                 </Box>
             </Container>
-            <Snackbar open={errorOpen} autoHideDuration={6000} onClose={() => {setErrorOpen(false)}}>
+            <Snackbar open={errorOpen} autoHideDuration={6000} onClose={() => setErrorOpen(false)}>
                 <Alert severity="error">
                     {errorMessage}
                 </Alert>

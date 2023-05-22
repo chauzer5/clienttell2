@@ -1,9 +1,9 @@
 "use client";
 
 import { Typography } from "@mui/material";
-import { useAppContext } from "../context/app_state";
+import { useAppContext } from "../../../context/app_state";
 import { signOut } from "firebase/auth";
-import { auth } from "../firebase/firebaseSetup";
+import { auth } from "../../../firebase/firebaseSetup";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -14,9 +14,9 @@ export default function Home() {
     <>
       <Typography>Welcome, {userFirstName}</Typography>
       <Typography onClick={()=>{
-        signOut(auth).then(() => {
-          router.push('/signin');
-        });
+        signOut(auth).catch((error) => {
+          console.log(error.message);
+        })
         
       }}>Sign out</Typography>
     </>

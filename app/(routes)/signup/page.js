@@ -1,7 +1,7 @@
 'use client';
 
 import { Card, CardContent, Box } from "@mui/material";
-import ClientTellLogo from "../components/ClientTellLogo";
+import ClientTellLogo from "../../components/ClientTellLogo";
 import SignUpForm from "./components/SignUpForm";
 
 export default function SignUp() {

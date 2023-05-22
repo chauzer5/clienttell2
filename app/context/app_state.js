@@ -8,9 +8,8 @@ import { useRouter } from "next/navigation";
 const AppContext = createContext({
     signedInUserId: null,
     userFirstName: null,
-    signInUser: () => {},
-    signUpUser: () => {},
-    signOutUser: () => {},
+    setSignedInUserId: () => {},
+    setUserFirstName: () => {},
 });
 
 export function AppWrapper({children}) {
