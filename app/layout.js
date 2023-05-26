@@ -1,4 +1,3 @@
-import "./globals.css";
 import { AppWrapper } from "./context/app_state";
 
 export const metadata = {
