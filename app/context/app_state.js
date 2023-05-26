@@ -17,17 +17,17 @@ export function AppWrapper({children}) {
     const [userFirstName, setUserFirstName] = useState(null);
     const router = useRouter()
 
-    onAuthStateChanged(auth, (user) => {
-        if (user && !signedInUserId) {
-            setSignedInUserId(user.uid);
-            setUserFirstName(user.displayName);
-            router.push('/home');
-        } else if (!user && signedInUserId){
-            setSignedInUserId(null);
-            setUserFirstName(null);
-            router.push('/signin');
-        }
-    });
+    // onAuthStateChanged(auth, (user) => {
+    //     if (user && !signedInUserId) {
+    //         setSignedInUserId(user.uid);
+    //         setUserFirstName(user.displayName);
+    //         router.push('/home');
+    //     } else if (!user && signedInUserId){
+    //         setSignedInUserId(null);
+    //         setUserFirstName(null);
+    //         router.push('/signin');
+    //     }
+    // });
 
     return (
         <AppContext.Provider value={{
