@@ -1,6 +1,6 @@
 "use client";
 
-import BigButton from "@/app/components/BigButton";
+import BigButton from "@/app/(routes)/(main)/home/components/BigButton";
 import { useAppContext } from "@/app/context/app_state";
 import { Box, Typography } from "@mui/material";
 import { useRouter } from "next/navigation";
