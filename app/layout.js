@@ -6,6 +6,12 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
+  const styles = {
+    body: {
+      margin: 0,
+    },
+  };
+
   return (
     <html lang="en">
       <head>
@@ -13,7 +19,7 @@ export default function RootLayout({ children }) {
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true"/>
         <link href="https://fonts.googleapis.com/css2?family=Koulen&display=swap" rel="stylesheet"/>
       </head>
-      <body>
+      <body style={styles.body}>
 
         <AppWrapper>
           {children}
