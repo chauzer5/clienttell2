@@ -1,14 +1,14 @@
 'use client';
 
 import { Card, CardContent, Box } from "@mui/material";
-import ClientTellLogo from "../../components/ClientTellLogo";
-import SignInForm from "./components/SignInForm";
-import { onAuthStateChanged } from "firebase/auth";
+import ClientTellLogo from "../../../components/ClientTellLogo";
+import SignUpForm from "./components/SignUpForm";
 import { useRouter } from "next/navigation";
 import { useAppContext } from "@/app/context/app_state";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/app/firebase/firebaseSetup";
 
-export default function SignIn() {
+export default function SignUp() {
     const styles = {
         root: {
             background: "whitesmoke",
@@ -22,10 +22,11 @@ export default function SignIn() {
 
         card: {
             width: "500px",
-            height: "550px",
+            height: "600px",
             px: 2
         }
     }
+
     const router = useRouter();
     const { setSignedInUserId, setUserFirstName, signedInUserId } = useAppContext();
 
@@ -42,7 +43,7 @@ export default function SignIn() {
             <Card sx={styles.card}>
                 <CardContent>
                     <ClientTellLogo />
-                    <SignInForm />
+                    <SignUpForm />
                 </CardContent>
             </Card>
         </Box>

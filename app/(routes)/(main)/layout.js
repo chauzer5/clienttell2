@@ -3,14 +3,9 @@
 import SiteHeader from "@/app/components/SiteHeader";
 import { useAppContext } from "@/app/context/app_state";
 import { auth } from "@/app/firebase/firebaseSetup";
-import { Box } from "@mui/material";
+import { Alert, Box, Snackbar } from "@mui/material";
 import { onAuthStateChanged } from "firebase/auth";
 import { useRouter } from "next/navigation";
-
-// export const metadata = {
-//   title: 'ClientTell',
-//   description: 'Efficient sales call notes',
-// };
 
 export default function MainLayout({ children }) {
     const styles = {
@@ -29,7 +24,15 @@ export default function MainLayout({ children }) {
     };
 
     const router = useRouter();
-    const { signedInUserId, setSignedInUserId, setUserFirstName } = useAppContext();
+    const { 
+        signedInUserId,
+        setSignedInUserId,
+        setUserFirstName,
+        notificationOpen,
+        notificationMessage,
+        notificationSeverity,
+        closeNotify,
+    } = useAppContext();
 
     onAuthStateChanged(auth, (user) => {
         if(user && !signedInUserId){
@@ -44,11 +47,19 @@ export default function MainLayout({ children }) {
     });
 
     return (
-        <Box sx={styles.root}>
-            <SiteHeader />
-            <Box sx={styles.content}>
-                {children}
+        <>
+            <Box sx={styles.root}>
+                <SiteHeader />
+                <Box sx={styles.content}>
+                    {children}
+                </Box>
             </Box>
-        </Box>
+
+            <Snackbar open={notificationOpen} autoHideDuration={6000} onClose={closeNotify}>
+                <Alert severity={notificationSeverity}>
+                    {notificationMessage}
+                </Alert>
+            </Snackbar>
+        </>
     );
 }

@@ -1,13 +1,14 @@
 "use client";
 
-import { Alert, Box, Button, Checkbox, Container, FormControlLabel, Snackbar, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Container, Snackbar, TextField, Typography } from "@mui/material";
+import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "@/app/firebase/firebaseSetup";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { browserLocalPersistence, browserSessionPersistence, setPersistence, signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "@/app/firebase/firebaseSetup";
 import { useState } from "react";
+import { useAppContext } from "@/app/context/app_state";
 
-export default function SignInForm() {
+export default function SignUpForm() {
     const styles = {
         main: {
             marginTop: 5,
@@ -35,54 +36,57 @@ export default function SignInForm() {
         },
         bottom: {
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "flex-end",
         }
     };
 
     const router = useRouter();
-
-    const [errorMessage, setErrorMessage] = useState("");
-    const [errorOpen, setErrorOpen] = useState(false);
+    const { notify } = useAppContext();
 
     const handleSubmit = (event) => {
         event.preventDefault();
         const formData = new FormData(event.currentTarget);
-
+        
         const email = formData.get("email");
         const password = formData.get("password");
-        const remember = formData.get("remember") != null;
+        const firstName = formData.get("name");
 
-        setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence).then(() => {
-            signInWithEmailAndPassword(auth, email, password)
-            .then(() => {
-                router.push('/home');
-            })
-            .catch((error) => {
-                switch(error.code){
-                    case "auth/invalid-email":
-                    case "auth/user-not-found":
-                        setErrorMessage("No account matching that email")
-                        break;
-                    case "auth/wrong-password":
-                        setErrorMessage("Incorrect password");
-                        break;
-                    default:
-                        setErrorMessage(error.code);
-                }
-                setErrorOpen(true);
-            });
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((result) => {
+            updateProfile(auth.currentUser, {displayName: firstName});
+            router.push('/home');
         })
-        
-    };
+        .catch((error) => {
+            let errorMessage;
+
+            switch(error.code){
+                case "auth/email-already-in-use":
+                    errorMessage = "An account with that email already exists";
+                    break;
+                default:
+                    errorMessage = error.code;
+            }
+
+            notify(errorMessage, "error");
+        })
+    }
 
     return (
         <>
             <Container maxWidth="xs">
                 <Box sx={styles.main}>
                     <Typography sx={styles.header}>
-                        Sign In
+                        Sign Up
                     </Typography>
                     <Box component="form" onSubmit={handleSubmit} sx={styles.form}>
+                        <TextField
+                            margin="normal"
+                            fullWidth
+                            id="name"
+                            label="First Name"
+                            name="name"
+                            autoFocus
+                        />
                         <TextField
                             margin="normal"
                             fullWidth
@@ -90,9 +94,7 @@ export default function SignInForm() {
                             label="Email Address"
                             name="email"
                             autoComplete="email"
-                            autoFocus
                         />
-
                         <TextField
                             margin="normal"
                             fullWidth
@@ -102,30 +104,20 @@ export default function SignInForm() {
                             id="password"
                             autoComplete="current-password"
                         />
-                        <FormControlLabel
-                            control={<Checkbox name="remember" color="primary" />}
-                            label="Remember me"
-                        />
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={styles.submit}
                         >
-                            SIGN IN
+                            SIGN UP
                         </Button>
                         <Box sx={styles.bottom}>
-                            <Link href="#" style={styles.link}>Forgot password?</Link>
-                            <Link href="/signup" style={styles.link}>Don&apos;t have an account? Sign up</Link>
+                            <Link href="/signin" style={styles.link}>Already have an account? Sign in</Link>
                         </Box>
                     </Box>
                 </Box>
             </Container>
-            <Snackbar open={errorOpen} autoHideDuration={6000} onClose={() => setErrorOpen(false)}>
-                <Alert severity="error">
-                    {errorMessage}
-                </Alert>
-            </Snackbar>
         </>
     );
 }
