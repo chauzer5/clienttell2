@@ -43,20 +43,6 @@ export default function MainLayout({ children }) {
         }
     });
 
-    // const router = useRouter()
-
-    // onAuthStateChanged(auth, (user) => {
-    //     if (user && !signedInUserId) {
-    //         setSignedInUserId(user.uid);
-    //         setUserFirstName(user.displayName);
-    //         router.push('/home');
-    //     } else if (!user && signedInUserId){
-    //         setSignedInUserId(null);
-    //         setUserFirstName(null);
-    //         router.push('/signin');
-    //     }
-    // });
-
     return (
         <Box sx={styles.root}>
             <SiteHeader />
