@@ -54,6 +54,7 @@ export default function SignUpForm() {
         createUserWithEmailAndPassword(auth, email, password)
         .then((result) => {
             updateProfile(auth.currentUser, {displayName: firstName});
+            notify("Successfully signed up", "success");
             router.push('/home');
         })
         .catch((error) => {

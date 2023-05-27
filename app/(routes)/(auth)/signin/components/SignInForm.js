@@ -54,6 +54,7 @@ export default function SignInForm() {
         setPersistence(auth, remember ? browserLocalPersistence : browserSessionPersistence).then(() => {
             signInWithEmailAndPassword(auth, email, password)
             .then(() => {
+                notify("Successfully signed in", "success");
                 router.push('/home');
             })
             .catch((error) => {
