@@ -3,7 +3,7 @@
 import { Card, CardContent, Box } from "@mui/material";
 import ClientTellLogo from "../../components/ClientTellLogo";
 import SignUpForm from "./components/SignUpForm";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useAppContext } from "@/app/context/app_state";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/app/firebase/firebaseSetup";
