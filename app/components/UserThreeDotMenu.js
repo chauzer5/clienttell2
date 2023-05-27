@@ -7,6 +7,7 @@ import { IconButton, ListItemIcon, Menu, MenuItem, Typography, Box } from "@mui/
 import { useAppContext } from "../context/app_state";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Logout } from "@mui/icons-material";
+import { useRouter } from "next/navigation";
 
 export default function UserThreeDotMenu(){
     const styles = {
@@ -47,6 +48,7 @@ export default function UserThreeDotMenu(){
         }
     };
 
+    const router = useRouter();
     const { userFirstName } = useAppContext();
     const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
@@ -61,6 +63,7 @@ export default function UserThreeDotMenu(){
 
     const handleSignOut = () => {
         signOut(auth);
+        router.push("/signin");
     };
 
     return (
