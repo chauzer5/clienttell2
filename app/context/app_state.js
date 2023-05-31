@@ -2,17 +2,7 @@
 
 import {createContext, useContext, useState} from "react";
 
-const AppContext = createContext({
-    signedInUserId: null,
-    userFirstName: null,
-    currentNotification: false,
-    notificationMessage: "",
-    notificationSeverity: "",
-    setSignedInUserId: () => {},
-    setUserFirstName: () => {},
-    notify: () => {},
-    closeNotify: () => {},
-});
+const AppContext = createContext();
 
 export function AppWrapper({children}) {
     const [signedInUserId, setSignedInUserId] = useState(null);

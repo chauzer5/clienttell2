@@ -1,4 +1,5 @@
 import { AppWrapper } from "./context/app_state";
+import { CallWrapper } from "./context/call_state";
 
 export const metadata = {
   title: 'ClientTell',
@@ -22,7 +23,9 @@ export default function RootLayout({ children }) {
       <body style={styles.body}>
 
         <AppWrapper>
-          {children}
+          <CallWrapper>
+            {children}
+          </CallWrapper>
         </AppWrapper>
 
       </body>
