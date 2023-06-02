@@ -9,7 +9,7 @@ export function AppWrapper({children}) {
     const [userFirstName, setUserFirstName] = useState(null);
     const [notificationOpen, setNotificationOpen] = useState(false);
     const [notificationMessage, setNotificationMessage] = useState("");
-    const [notificationSeverity, setNotificationSeverity] = useState("");
+    const [notificationSeverity, setNotificationSeverity] = useState("info");
 
     const notify = (message, severity) => {
         setNotificationMessage(message);

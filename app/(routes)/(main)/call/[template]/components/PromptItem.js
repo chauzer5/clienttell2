@@ -1,5 +1,6 @@
 import { Box, Button, Card, Typography } from "@mui/material";
 import AddIcon from '@mui/icons-material/Add';
+import { useCallContext } from "@/app/context/call_state";
 
 export default function PromptItem(props){
     const styles = {
@@ -26,10 +27,13 @@ export default function PromptItem(props){
     };
 
     const { prompt } = props;
+    const { folderPath, prompts, setPrompts, setCurrentPromptEdit } = useCallContext();
 
     const handleClick = () => {
-        // TODO
-        console.log("RILEY ADDED A PROMPT");
+        const folderPathAsString = folderPath.map(folder => folder.name).reverse().join(" - ");
+        let numPrompts = prompts.length;
+        setPrompts(prompts.concat({prompt: prompt.text, path: folderPathAsString, note: ""}));
+        setCurrentPromptEdit(numPrompts);
     };
 
     return (
