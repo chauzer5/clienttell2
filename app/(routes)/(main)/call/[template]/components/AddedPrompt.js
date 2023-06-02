@@ -16,6 +16,7 @@ export default function AddedPrompt(props){
         },
         content_box: {
             flexGrow: 1,
+            maxWidth: "80%",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
