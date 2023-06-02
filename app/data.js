@@ -14,7 +14,7 @@ let templates = [
                 type: "prompt",
                 id: 0,
                 text: "Hey ___, this is ___. I was told you were the person to speak with over hiring. do you have a minute to talk?",
-                parents: [],
+                parents: [-1],
             },
 
             {
@@ -22,7 +22,7 @@ let templates = [
                 id: 1,
                 text: `I want to clarify that I am not looking at filling a position myself. I work at a place called Eddy and we help ___ hire ___. A lot of 
                 ___ I work with have had a hard time finding quality candidates and also have a hard time having them show up to the interviews. How are you handling that?`,
-                parents: [],
+                parents: [-1],
             },
 
             {
@@ -30,7 +30,7 @@ let templates = [
                 id: 2,
                 name: "NOT struggling to hire",
                 color: "#3D5C7E",
-                parents: [],
+                parents: [-1],
             },
 
             {
@@ -82,7 +82,7 @@ let templates = [
                 id: 9,
                 name: "Struggling to hire",
                 color: "#3D5C7E",
-                parents: [],
+                parents: [-1],
             },
 
             {
@@ -339,7 +339,7 @@ let templates = [
                 id: 0,
                 name: "Star Wars",
                 color: "#BC2828",
-                parents: [],
+                parents: [-1, 7],
             },
 
             {
@@ -406,7 +406,7 @@ let templates = [
                 id: 9,
                 name: "Lord of the Rings",
                 color: "#BC2828",
-                parents: [],
+                parents: [-1],
             },
 
             {
@@ -435,14 +435,14 @@ let templates = [
                 type: "prompt",
                 id: 13,
                 text: "Top level tree prompt 1?",
-                parents: [],
+                parents: [-1],
             },
 
             {
                 type: "prompt",
                 id: 14,
                 text: "Top level tree prompt 2?",
-                parents: [],
+                parents: [-1],
             },
         ],
     },

@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { getAllTemplates } from "../data";
 import { Box, Button, FormLabel, MenuItem, Modal, Select, TextField, Typography } from "@mui/material";
+import { useCallContext } from "../context/call_state";
 
 export default function NewCallModalButton(props){
     const styles = {
@@ -59,6 +60,8 @@ export default function NewCallModalButton(props){
     const [notes, setNotes] = useState("");
     const [modalOpen, setModalOpen] = useState(false);
 
+    const { setCallInfo, setCurrentTemplate } = useCallContext();
+
     const handleOpenModal = () => {
         setModalOpen(true);
         setTemplate(templateUuid);
@@ -73,7 +76,12 @@ export default function NewCallModalButton(props){
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // TODO probably set some context here
+        setCallInfo({
+            companyName,
+            contactName,
+            notes,
+        });
+        setCurrentTemplate(template);
         router.push(`/call/${template}`);
     }
 
