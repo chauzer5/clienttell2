@@ -4,6 +4,9 @@ import { Box } from "@mui/material";
 import Link from "next/link";
 import ClientTellLogo from "./ClientTellLogo";
 import UserThreeDotMenu from "./UserThreeDotMenu";
+import { useCallContext } from "../context/call_state";
+import CallInfoHeader from "./CallInfoHeader";
+import { usePathname } from "next/navigation";
 
 export default function SiteHeader(){
     const styles = {
@@ -23,9 +26,15 @@ export default function SiteHeader(){
         }
     };
 
+    const { currentTemplate } = useCallContext();
+    const pathName = usePathname();
+
     return (
         <Box sx={styles.root}>
             <Link href="/home"><ClientTellLogo style={styles.logo} /></Link>
+            { currentTemplate 
+            && pathName === `/call/${currentTemplate}`
+            && <CallInfoHeader /> }
             <UserThreeDotMenu />
         </Box>
     )

@@ -62,6 +62,9 @@ export default function NewCallModalButton(props){
 
     const { setCallInfo, setCurrentTemplate } = useCallContext();
 
+    const today = new Date();
+    const todayString = `${ String(today.getDate()).padStart(2, "0") }/${ String(today.getMonth()+1).padStart(2, "0") }/${ today.getFullYear() }`;
+
     const handleOpenModal = () => {
         setModalOpen(true);
         setTemplate(templateUuid);
@@ -77,16 +80,15 @@ export default function NewCallModalButton(props){
     const handleSubmit = (event) => {
         event.preventDefault();
         setCallInfo({
+            template,
+            date: todayString,
             companyName,
             contactName,
             notes,
         });
         setCurrentTemplate(template);
         router.push(`/call/${template}`);
-    }
-
-    const today = new Date();
-    const todayString = `${ String(today.getDate()).padStart(2, "0") }/${ String(today.getMonth()+1).padStart(2, "0") }/${ today.getFullYear() }`;
+    };
 
     return (
         <>
