@@ -320,6 +320,20 @@ let templates = [
         ],
     },
 
+    {
+        userId: "wDBPV3fjezOkzESUU4DlaDijrD53",
+        uuid: "816f744f-9150-4269-80a5-2f9118c3a592",
+        name: "NetGain Call",
+        description: `New test template for Mr. Peeples`,
+        export: {
+            mode: "clipboard",
+            includeCallInfo: false,
+            includePaths: false,
+        },
+        nodes: [
+
+        ],
+    },
 
     {
         userId: "wDBPV3fjezOkzESUU4DlaDijrD53",

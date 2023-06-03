@@ -65,6 +65,14 @@ export default function CallTreeSection(){
     const templateNodes = template.nodes;
 
     const handleGoDown = (folder) => {
+        // looping folders will just go back to the folder instead of adding on to folderPath
+        for(let i = 0; i < folderPath.length; i++){
+            if(folderPath[i].id === folder.id){
+                setFolderPath(folderPath.slice(0, i + 1));
+                return;
+            }
+        }
+
         setFolderPath(folderPath.concat(folder));
     };
 
