@@ -414,7 +414,7 @@ let templates = [
                 id: 9,
                 name: "Right Person",
                 color: "#BC2828",
-                children: [10,11,17,47,8],
+                children: [10,11,17,47,7],
             },
             {
                 type: "prompt",
