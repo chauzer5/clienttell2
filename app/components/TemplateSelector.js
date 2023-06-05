@@ -44,11 +44,11 @@ export default function TemplateSelector(props){
 
     return (
         <Card sx={styles.card}>
-            <Typography variant="h4" fontWeight="bold" width="400" textAlign="center">
+            <Typography variant="h4" fontWeight="bold" width="300px" textAlign="center">
                 {template.name}
             </Typography>
-            <Divider orientation="vertical" variant="middle" />
-            <Typography width="700px">
+            <Divider orientation="vertical" variant="middle"/>
+            <Typography width="400px">
                 {template.description}
             </Typography>
             <Divider orientation="vertical" variant="middle" />

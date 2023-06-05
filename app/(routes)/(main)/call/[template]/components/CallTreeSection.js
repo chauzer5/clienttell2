@@ -92,13 +92,21 @@ export default function CallTreeSection(){
     };
 
     const getContents = () => {
-        let contents = [];
-        templateNodes.forEach((node) => {
-            if(node.parents.includes(folderPath.length === 0 ? -1 : folderPath[folderPath.length - 1].id)){
-                contents.push(node);
-            }
+        let children;
+        if(folderPath.length === 0){
+            children = templateNodes[0].children;
+        }
+        else{
+            children = folderPath[folderPath.length - 1].children;
+        }
+
+        const unorderedNodes = templateNodes.filter(node => children.includes(node.id));
+        const orderedNodes = [];
+        children.forEach((id) => {
+            orderedNodes.push(unorderedNodes.filter(node => node.id === id)[0]);
         });
-        return contents;
+
+        return orderedNodes;
     };
 
     return (
