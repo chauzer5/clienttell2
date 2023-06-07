@@ -18,11 +18,18 @@ export default function TemplateSelector(props){
             p:3,
             gap: "35px",
         },
-
         button: {
             width: "150px",
             mr: 2,
             backgroundColor: '#60AFFF',
+        },
+        editButton: {
+            backgroundColor: "#D09E14",
+            mr: 2,
+            width: "150px",
+            "&:hover": {
+                backgroundColor: "#947D3F",
+            }
         }
     };
 
