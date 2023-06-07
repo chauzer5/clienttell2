@@ -5,6 +5,7 @@ import { Box, Button, Divider, Typography } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import PromptItem from "./PromptItem";
 import { getTemplateByUUID } from "@/app/data";
+import utils from "@/app/utils";
 
 export default function CallTreeSection(){
     const styles = {
@@ -34,7 +35,7 @@ export default function CallTreeSection(){
             mr: 1,
             backgroundColor: "#5B5B5B",
             "&:hover": {
-                backgroundColor: "#323232"
+                backgroundColor: utils.colorModify("#5B5B5B", -40),
             },
             // flexGrow: 1
         },
@@ -116,12 +117,7 @@ export default function CallTreeSection(){
             <Box sx={styles.folders}>
                 {folderPath.length === 0 ? (
                     <Box sx={styles.folder_box}>
-                        {/* <Button variant="contained" sx={{...styles.home_button, flexGrow: 1}}>
-                            <HomeIcon fontSize="large"/>
-                        </Button> */}
-
                         <Box sx={{...styles.home_button, ...styles.pressed_folder, justifyContent: "center", "&:hover":{backgroundColor: "#5B5B5B"}, flexGrow: 1}}>
-                            {/* <Typography><HomeIcon fontSize="large"/></Typography> */}
                             <HomeIcon sx={{fill: "white"}} fontSize="large"/>
                         </Box>
                     </Box>
@@ -138,7 +134,7 @@ export default function CallTreeSection(){
                                     sx={{
                                         ...styles.folder_button,
                                         backgroundColor: folderPath[0].color,
-                                        "&:hover": {backgroundColor: folderPath[0].color}
+                                        "&:hover": {backgroundColor: utils.colorModify(folderPath[0].color, -40)}
                                     }}
                                 >
                                     {folderPath[0].name}
@@ -168,7 +164,7 @@ export default function CallTreeSection(){
                                             sx={{
                                                 ...styles.folder_button,
                                                 backgroundColor: folder.color,
-                                                "&:hover": {backgroundColor: folder.color},
+                                                "&:hover": {backgroundColor: utils.colorModify(folder.color, -40)},
                                             }}
                                         >
                                             {folder.name}
@@ -208,7 +204,7 @@ export default function CallTreeSection(){
                                     sx={{
                                         ...styles.folder_button,
                                         backgroundColor: node.color,
-                                        "&:hover": {backgroundColor: node.color}
+                                        "&:hover": {backgroundColor: utils.colorModify(node.color, -40)}
                                     }}
                                 >
                                     {node.name}

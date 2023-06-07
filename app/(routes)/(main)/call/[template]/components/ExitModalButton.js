@@ -1,3 +1,4 @@
+import utils from "@/app/utils";
 import { Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 
@@ -9,7 +10,7 @@ export default function ExitModalButton(){
             fontSize: "18px",
             backgroundColor: "#FF7474",
             "&:hover": {
-                backgroundColor: "#FF7474",
+                backgroundColor: utils.colorModify("#FF7474", -40),
             }
         }
     };
