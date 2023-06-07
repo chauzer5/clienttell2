@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallContext } from "@/app/context/call_state";
-import { Box, Button, Divider } from "@mui/material";
+import { Box, Button, Divider, Typography } from "@mui/material";
 import HomeIcon from '@mui/icons-material/Home';
 import PromptItem from "./PromptItem";
 import { getTemplateByUUID } from "@/app/data";
@@ -47,12 +47,14 @@ export default function CallTreeSection(){
             textTransform: "unset !important",
             pl: 3,
             flexGrow: 1,
-            justifyContent: "flex-start"
+            justifyContent: "flex-start",
         },
         pressed_folder: {
-            // DOESN'T WORK, TODO
-            boxShadow: "inset 0 2 3px #000000"
-        },
+            boxShadow: "inset 0px 3px 5px 0px rgba(0, 0, 0, 0.4)",
+            display: "flex",
+            justifyContent: "flex-start",
+            alignItems: "center",
+        }
     };
 
     const {
@@ -114,9 +116,14 @@ export default function CallTreeSection(){
             <Box sx={styles.folders}>
                 {folderPath.length === 0 ? (
                     <Box sx={styles.folder_box}>
-                        <Button variant="contained" sx={{...styles.home_button, flexGrow: 1}}>
+                        {/* <Button variant="contained" sx={{...styles.home_button, flexGrow: 1}}>
                             <HomeIcon fontSize="large"/>
-                        </Button>
+                        </Button> */}
+
+                        <Box sx={{...styles.home_button, ...styles.pressed_folder, justifyContent: "center", "&:hover":{backgroundColor: "#5B5B5B"}, flexGrow: 1}}>
+                            {/* <Typography><HomeIcon fontSize="large"/></Typography> */}
+                            <HomeIcon sx={{fill: "white"}} fontSize="large"/>
+                        </Box>
                     </Box>
                 ) : (
                     <>
@@ -124,36 +131,66 @@ export default function CallTreeSection(){
                             <Button onClick={handleGoHome} variant="contained" sx={styles.home_button}>
                                 <HomeIcon fontSize="large"/>
                             </Button>
-                            <Button
-                                onClick={() => {handleGoUp(folderPath[0])}}
-                                variant="contained"
-                                sx={{
-                                    ...styles.folder_button,
-                                    backgroundColor: folderPath[0].color,
-                                    "&:hover": {backgroundColor: folderPath[0].color}
-                                }}
-                            >
-                                {folderPath[0].name}
-                            </Button>
+                            { folderPath.length > 1 ? (
+                                <Button
+                                    onClick={() => {handleGoUp(folderPath[0])}}
+                                    variant="contained"
+                                    sx={{
+                                        ...styles.folder_button,
+                                        backgroundColor: folderPath[0].color,
+                                        "&:hover": {backgroundColor: folderPath[0].color}
+                                    }}
+                                >
+                                    {folderPath[0].name}
+                                </Button>
+                            ) : (
+                                <Box
+                                    onClick={() => {handleGoUp(folderPath[0])}}
+                                    sx={{
+                                        ...styles.folder_button,
+                                        ...styles.pressed_folder,
+                                        backgroundColor: folderPath[0].color,
+                                        "&:hover": {backgroundColor: folderPath[0].color}
+                                    }}
+                                >
+                                    <Typography sx={{color: "white", fontWeight: 700, fontSize: "18px"}}>{folderPath[0].name}</Typography>
+                                </Box>
+                            )}
                         </Box>
 
-                        {folderPath.slice(1).map((folder) => {
+                        {folderPath.slice(1).map((folder, index) => {
                             return (
                                 <Box key={folder.id} sx={styles.folder_box}>
-                                    <Button
-                                        onClick={() => {handleGoUp(folder)}}
-                                        variant="contained"
-                                        sx={{
-                                            ...styles.folder_button,
-                                            backgroundColor: folder.color,
-                                            "&:hover": {backgroundColor: folder.color},
-                                        }}
-                                    >
-                                        {folder.name}
-                                    </Button>
+                                    { index !== folderPath.length - 2 ? (
+                                        <Button
+                                            onClick={() => {handleGoUp(folder)}}
+                                            variant="contained"
+                                            sx={{
+                                                ...styles.folder_button,
+                                                backgroundColor: folder.color,
+                                                "&:hover": {backgroundColor: folder.color},
+                                            }}
+                                        >
+                                            {folder.name}
+                                        </Button>
+                                    ) : (
+                                        <Box
+                                            onClick={() => {handleGoUp(folder)}}
+                                            variant="contained"
+                                            sx={{
+                                                ...styles.pressed_folder,
+                                                ...styles.folder_button,
+                                                backgroundColor: folder.color,
+                                                "&:hover": {backgroundColor: folder.color},
+                                            }}
+                                        >
+                                            <Typography sx={{color: "white", fontWeight: 700, fontSize: "18px"}}>{folder.name}</Typography>
+                                        </Box>
+                                    )}
                                 </Box>
                             );
                         })}
+
                     </>
                 )}
             </Box>
